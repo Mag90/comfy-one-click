@@ -42,7 +42,4 @@ echo "Extracting ClearRealityV1 upscale model..."
 mkdir -p models/upscale_models
 unzip misc/ClearRealityV1.zip -d models/upscale_models
 
-echo "Starting ComfyUI server..."
-nohup python3 main.py > comfyui.log 2>&1 &
-
-echo "ComfyUI has been set up and is running. You can access the GUI at http://127.0.0.1:8188."
+echo "ComfyUI installation completed."
