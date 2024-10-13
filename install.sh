@@ -34,7 +34,8 @@ wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/vae/ae.safetens
 
 # Download the ControlNet model
 echo "Downloading ControlNet model from Hugging Face..."
-wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/controlnet/flux/diffusion_pytorch_model.safetensors https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/832dab0074e8541d4c324619e0e357befba19611/diffusion_pytorch_model.safetensors
+wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/controlnet/flux/flux-union.safetensors https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/832dab0074e8541d4c324619e0e357befba19611/diffusion_pytorch_model.safetensors
+wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/controlnet/flux/flux-union-pro.safetensors https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro/resolve/main/diffusion_pytorch_model.safetensors
 
 
 # Extract ClearRealityV1 upscale model from existing zip file
