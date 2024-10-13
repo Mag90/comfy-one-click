@@ -41,6 +41,6 @@ wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/controlnet/flux
 # Extract ClearRealityV1 upscale model from existing zip file
 echo "Extracting ClearRealityV1 upscale model..."
 mkdir -p models/upscale_models
-unzip misc/ClearRealityV1.zip -d models/upscale_models
+unzip misc/ClearRealityV1.zip -d ComfyUI/models/upscale_models
 
 echo "ComfyUI installation completed."
