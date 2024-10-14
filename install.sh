@@ -8,16 +8,26 @@ cd ComfyUI
 echo "Installing Python dependencies..."
 pip3 install -r requirements.txt
 
+
+#install custom nodes
 echo "Installing ComfyUI Manager..."
 cd custom_nodes
 git clone https://github.com/ltdrdata/ComfyUI-Manager.git
+
+git clone https://github.com/XLabs-AI/x-flux-comfyui.git
+cd x-flux-comfyui
+python3 setup.py
+
+cd ..
 cd ..
 
 # Create the necessary directories for the models if they don't exist
 mkdir -p models/unet
 mkdir -p models/clip
+mkdir -p models/clip_vision
 mkdir -p models/vae
 mkdir -p models/controlnet/flux
+mkdir -p models/xlabs/ipadapters
 
 # Download the UNET model (flux1-dev.safetensors or flux1-schnell.safetensors)
 echo "Downloading UNET model from Hugging Face..."
@@ -28,13 +38,19 @@ echo "Downloading CLIP models from Hugging Face..."
 wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/clip/clip_l.safetensors https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/clip_l.safetensors
 wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/clip/t5xxl_fp16.safetensors https://huggingface.co/comfyanonymous/flux_text_encoders/resolve/main/t5xxl_fp16.safetensors
 
+#Download Clip Vision
+wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/clip_vision/model.safetensors https://huggingface.co/openai/clip-vit-large-patch14/resolve/main/model.safetensors
+
+#Download IPadapters
+wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/xlabs/ipadapters/flux-ip-adapter.safetensors https://huggingface.co/XLabs-AI/flux-ip-adapter/resolve/main/flux-ip-adapter.safetensors
+
 # Download the VAE model
 echo "Downloading VAE model from Hugging Face..."
 wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/vae/ae.safetensors https://huggingface.co/black-forest-labs/FLUX.1-schnell/resolve/main/ae.safetensors
 
 # Download the ControlNet model
 echo "Downloading ControlNet model from Hugging Face..."
-wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/controlnet/flux/flux-union.safetensors https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/832dab0074e8541d4c324619e0e357befba19611/diffusion_pytorch_model.safetensors
+#wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/controlnet/flux/flux-union.safetensors https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/832dab0074e8541d4c324619e0e357befba19611/diffusion_pytorch_model.safetensors
 wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/controlnet/flux/flux-union-pro.safetensors https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro/resolve/main/diffusion_pytorch_model.safetensors
 
 
