@@ -2,7 +2,7 @@
 sudo apt install python3.10-venv
 
 
-git clone https://github.com/cocktailpeanut/fluxgym
+git clone https://github.com/Mag90/fluxgym.git
 cd fluxgym
 git clone -b sd3 https://github.com/kohya-ss/sd-scripts
 

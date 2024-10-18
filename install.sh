@@ -4,6 +4,12 @@ CIVITAI_ACCESS_TOKEN="1e02ca8ab1875d5bff720b78f42e31e6"
 
 # wget https://civitai.com/api/download/models/293331?$CIVITAI_ACCESS_TOKEN --content-disposition
 # wget https://civitai.com/api/download/models/293331?token=1e02ca8ab1875d5bff720b78f42e31e6 --content-disposition
+#wget --header="Authorization: Bearer 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" -O models/ipadapter/ip-adapter-faceid-plusv2_sdxl.bin https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plusv2_sdxl.bin
+wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/loras/flux_realism_lora.safetensors https://huggingface.co/comfyanonymous/flux_RealismLora_converted_comfyui/resolve/main/flux_realism_lora.safetensors
+#wget --header="Authorization: Bearer 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" -O antelopev2.zip https://huggingface.co/vladmandic/insightface-faceanalysis/resolve/main/antelopev2.zip
+#wget --header="Authorization: Bearer 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" -O buffalo_l.zip https://huggingface.co/vladmandic/insightface-faceanalysis/resolve/main/buffalo_l.zip
+
+#wget --header="Authorization: Bearer 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" -O models/controlnet/sdxl/diffusion_pytorch_model_promax.safetensors https://huggingface.co/xinsir/controlnet-union-sdxl-1.0/resolve/main/diffusion_pytorch_model_promax.safetensors
 
 
 echo "Cloning the ComfyUI repository..."
@@ -35,11 +41,12 @@ mkdir -p models/vae
 mkdir -p models/controlnet/flux
 mkdir -p models/controlnet/sdxl
 mkdir -p models/xlabs/ipadapters
-mkdir -p models/ipadapters
+mkdir -p models/ipadapter
 mkdir -p models/loras
 
 #download SDXL
-wget models/checkpoints/wildcardx-xl-turbo.safetensors https://civitai.com/api/download/models/329685?token=$CIVITAI_ACCESS_TOKEN --content-disposition
+wget -O models/checkpoints/wildcardx-xl-turbo.safetensors https://civitai.com/api/download/models/329685?token=$CIVITAI_ACCESS_TOKEN --content-disposition
+wget -O models/checkpoints/pony_realism.safetensors https://civitai.com/api/download/models/424637?token=$CIVITAI_ACCESS_TOKEN --content-disposition
 
 
 # Download the UNET model (flux1-dev.safetensors or flux1-schnell.safetensors)
@@ -54,12 +61,26 @@ wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/clip/t5xxl_fp16
 #Download Clip Vision
 wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/clip_vision/model.safetensors https://huggingface.co/openai/clip-vit-large-patch14/resolve/main/model.safetensors
 
+#Faceloader
+wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/clip_vision/CLIP-ViT-H-14-laion2B-s32B-b79K.safetensors https://huggingface.co/laion/CLIP-ViT-H-14-laion2B-s32B-b79K/resolve/main/model.safetensors
+mkdir -p models/insightface/models
+cd models/insightface/models
+wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O antelopev2.zip https://huggingface.co/vladmandic/insightface-faceanalysis/resolve/main/antelopev2.zip
+unzip antelopev2.zip
+cd ..
+cd ..
+
+
 #Download IPadapters
 wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/xlabs/ipadapters/flux-ip-adapter.safetensors https://huggingface.co/XLabs-AI/flux-ip-adapter/resolve/main/flux-ip-adapter.safetensors
-wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/ipadapters/ip-adapter-faceid-plusv2_sdxl.bin https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plusv2_sdxl.bin
+wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/ipadapter/ip-adapter-faceid-plusv2_sdxl.bin https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plusv2_sdxl.bin
+
 
 #Download loras
 wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/loras/ip-adapter-faceid-plusv2_sdxl_lora.safetensors https://huggingface.co/h94/IP-Adapter-FaceID/resolve/main/ip-adapter-faceid-plusv2_sdxl_lora.safetensors
+wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/loras/flux_realism_lora.safetensors https://huggingface.co/comfyanonymous/flux_RealismLora_converted_comfyui/resolve/main/flux_realism_lora.safetensors
+wget -O models/loras/pony_amature_v2.safetensors https://civitai.com/api/download/models/534756?token=$CIVITAI_ACCESS_TOKEN --content-disposition
+
 
 # Download the VAE model
 echo "Downloading VAE model from Hugging Face..."
@@ -69,7 +90,8 @@ wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/vae/ae.safetens
 echo "Downloading ControlNet model from Hugging Face..."
 #wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/controlnet/flux/flux-union.safetensors https://huggingface.co/InstantX/FLUX.1-dev-Controlnet-Union/resolve/832dab0074e8541d4c324619e0e357befba19611/diffusion_pytorch_model.safetensors
 wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/controlnet/flux/flux-union-pro.safetensors https://huggingface.co/Shakker-Labs/FLUX.1-dev-ControlNet-Union-Pro/resolve/main/diffusion_pytorch_model.safetensors
-wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/controlnet/sdxl/OpenPoseXL2.safetensors https://huggingface.co/thibaud/controlnet-openpose-sdxl-1.0/resolve/main/OpenPoseXL2.safetensors
+#wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/controlnet/sdxl/OpenPoseXL2.safetensors https://huggingface.co/thibaud/controlnet-openpose-sdxl-1.0/resolve/main/OpenPoseXL2.safetensors
+wget --header="Authorization: Bearer $HF_ACCESS_TOKEN" -O models/controlnet/sdxl/diffusion_pytorch_model_promax.safetensors https://huggingface.co/xinsir/controlnet-union-sdxl-1.0/resolve/main/diffusion_pytorch_model_promax.safetensors
 
 
 
